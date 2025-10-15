@@ -230,7 +230,7 @@ section:hover .header {
 
 #changelog #changelog-list {
   max-height: 99%;
-  overflow-y: scroll;
+  overflow-x: scroll;
 }
 
 footer {

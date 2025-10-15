@@ -98,18 +98,28 @@
         <section id="changelog">
           <span class="header">changelog</span>
           <div id="changelog-list">
-            <p>
-              here will be changelog.
-            </p>
-            <p>
-              here will be changelog.
-            </p>
-            <p>
-              here will be changelog.
-            </p>
-            <p>
-              here will be changelog.
-            </p>
+            <?php
+$raw = shell_exec("git log --pretty=format:'%ad|%s' --date=format:'%d.%m.%y'");
+
+if ($raw === null) {
+  echo "<span>Nothing here.</span>";
+  exit;
+}
+
+$lines = explode("\n", trim($raw));
+
+foreach ($lines as $line) {
+  $parts = explode('|', $line, 2);
+  if (count($parts) === 2) {
+    $date = htmlspecialchars($parts[0]);
+    $message = htmlspecialchars($parts[1]);
+
+    echo "<div class='commit'>";
+    echo "<small><strong>$date</strong>:$message</small>";
+    echo "</div>";
+  }
+}
+            ?>
           </div>
 
         </section>
