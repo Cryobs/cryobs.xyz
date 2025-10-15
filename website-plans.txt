@@ -1,0 +1,25 @@
+1. static Home Page
+  - info about me (some)
+  - recently played songs
+  - change log
+  - last post
+  - current stuff
+    - books
+    - serials/films
+    - games
+  - my button 
+  - navigation
+  - my servers status
+2. Blog
+  a) git based (push/pull)
+  b) CI/CD (gitlab, self-hosted git)
+  c) Markdown to HTML convert
+  d) JS-less (PHP server-side)
+3. RSS
+4. Change log (last commit)
+5. +- site exporter (static-bundle)
+6. git.domain
+  a) gitea
+  b) https
+
+i. Holiday setup (Helloween some pumpkins, etc)
