@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
+<?php 
+// get .env
+require 'vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+?>
     <nav id="nav-small" class="small">
       <div id="logo-wrapper">
         <div id="logo-container">
@@ -80,7 +87,35 @@
           <p>smth will be here</p>
         </section>
 
-        <footer>est. 2025 * visitor nr 0#</footer>
+        <footer>
+<?php
+// VISITORS INCREMENT
+$format = "est. 2025 * visitor nr ";
+
+// get variables
+$host = $_ENV['DB_HOST'];
+$db   = $_ENV['DB_NAME'];
+$user = $_ENV['DB_USER'];
+$pass = $_ENV['DB_PASS'];
+
+try {
+  $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass, [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC 
+  ]);
+  $pdo->exec("UPDATE site_stats SET visits = visits + 1 WHERE id = 1");
+
+  $stmt = $pdo->query("SELECT visits FROM site_stats WHERE id = 1");
+
+  $results = $stmt->fetchAll();
+
+  echo $format . $results[0]['visits'] . "#";
+
+} catch (PDOException $e) {
+  echo $format . "?";
+}
+?>
+        </footer>
 
       </div>
       <aside id="aside-right">
@@ -98,8 +133,8 @@
         <section id="changelog">
           <span class="header">changelog</span>
           <div id="changelog-list">
-            <?php
-$raw = shell_exec("git log --pretty=format:'%ad|%s' --date=format:'%d.%m.%y'");
+<?php
+$raw = `git log --pretty=format:'%ad|%s' --date=format:'%d.%m.%y'`;
 
 if ($raw === null) {
   echo "<span>Nothing here.</span>";
