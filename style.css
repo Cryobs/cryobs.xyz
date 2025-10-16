@@ -36,23 +36,33 @@ html, body {
 }
 
 body {
-  background-image: url('static/background.jpeg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-color: rgba(10, 10, 10, 0.9);
-  background-blend-mode: lighten;
-  background-attachment: fixed;
 
   min-height: 100vh;
   overflow-x: hidden;
 
+  background-color: rgba(0, 0, 0, 1);
+
   margin: 0;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('static/background2-1.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
+  background-attachment: fixed;
+
+  filter: invert(1) grayscale(100%);
 }
 
 
 
 .flex-container {
-  margin-top: 60px;
+  padding-top: 60px;
   display: flex;
   flex-wrap: wrap;
   position: relative;
@@ -60,13 +70,6 @@ body {
   z-index: 0;
 }
 
-
-p {
-  background-color: var(--bg);
-  font-size: 16px;
-  margin-bottom: 1rem;
-  text-align: justify;
-}
 
 #logo-container {
   position: relative;
@@ -140,13 +143,23 @@ section {
   margin: 0.5rem;
   padding: 1rem;
   border: dashed 1px var(--fg);
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(20, 20, 20, 0.8);
   z-index: 1;
 }
 
+section p {
+  background-color: var(--bg);
+  font-size: 16px;
+  text-align: justify;
+}
+
+section p:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
 section .header {
-  position: relative;
-  bottom: 20px;
+  position: absolute;
+  top: -5px;
   background-color: var(--bg);
   font-weight: bold;
   z-index: 1;
@@ -229,13 +242,13 @@ section:hover .header {
 }
 
 #changelog #changelog-list {
-  max-height: 99%;
+  max-height: 100%;
   overflow-x: scroll;
 }
 
 footer {
   text-align: center;
-  text-shadow: 2px 2px 20px var(--bg);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 @media only screen and (max-width: 670px) {

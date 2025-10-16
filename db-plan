@@ -1,0 +1,9 @@
+MySQL
+
+// site statistics table
+
+CREATE TABLE site_stats (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  visits INT NOT NULL DEFAULT 0
+);
+INSERT INTO site_stats (visits) VALUES (0);

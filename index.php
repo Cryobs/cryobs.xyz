@@ -115,7 +115,7 @@ foreach ($lines as $line) {
     $message = htmlspecialchars($parts[1]);
 
     echo "<div class='commit'>";
-    echo "<small><strong>$date</strong>:$message</small>";
+    echo "<small><strong>$date</strong>: $message</small>";
     echo "</div>";
   }
 }
