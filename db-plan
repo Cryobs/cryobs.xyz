@@ -2,8 +2,12 @@ MySQL
 
 // site statistics table
 
+CREATE DATABASE cryobs_xyz;
+USE cryobs_xyz;
 CREATE TABLE site_stats (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  visits INT NOT NULL DEFAULT 0
+  visits INT NOT NULL DEFAULT 0,
+  status VARCHAR(255)
 );
-INSERT INTO site_stats (visits) VALUES (0);
+INSERT INTO site_stats (visits, status) VALUES (0, Deploying website);
+exit;

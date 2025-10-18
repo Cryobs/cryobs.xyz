@@ -1,0 +1,18 @@
+[Unit]
+Description=Telegram Bot for cryobs.xyz Service
+After=network.target mariadb.service
+
+[Service]
+User=cryobs
+#change to your site path
+WorkingDirectory=/home/cryobs/cryobs.xyz
+Environment="PATH=/usr/bin"
+#here change too
+ExecStart=/home/cryobs/cryobs.xyz/venv/bin/python /home/cryobs/cryobs.xyz/bot.py
+Restart=always
+RestartSec=5
+
+
+[Install]
+WantedBy=multi-user.target
+

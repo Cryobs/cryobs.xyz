@@ -22,6 +22,11 @@
   font-display: swap;
 }
 
+::selection, ::-moz-selection {
+  color: var(--bg);
+  background: var(--yellow);
+}
+
 * {
   font-family:'Courier New', Courier, monospace;
   box-sizing: border-box;

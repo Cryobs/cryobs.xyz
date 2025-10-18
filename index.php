@@ -13,12 +13,35 @@ require 'vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
+
+// get variables
+$host = $_ENV['DB_HOST'];
+$db   = $_ENV['DB_NAME'];
+$user = $_ENV['DB_USER'];
+$pass = $_ENV['DB_PASS'];
+
+
+// get status from DB
+$status = "Here will be status!";
+try {
+  $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass, [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC 
+  ]);
+  $stmt = $pdo->query("SELECT status FROM site_stats WHERE id = 1");
+
+  $results = $stmt->fetchAll();
+
+  $status = $results[0]['status'];
+
+} catch (PDOException $e) {
+}
 ?>
     <nav id="nav-small" class="small">
       <div id="logo-wrapper">
         <div id="logo-container">
           <h1 id="logo">cryobs.xyz</h1>
-          <span id="logo-status">Play Minecraft!</span>
+          <span id="logo-status"><?php echo $status;?></span>
         </div>
       </div>
 
@@ -43,7 +66,7 @@ $dotenv->load();
         <section>
           <div id="logo-container">
             <h1 id="logo">cryobs.xyz</h1>
-            <span id="logo-status">Play Minecraft!</span>
+            <span id="logo-status"><?php echo $status;?></span>
           </div>
           <p>
           Hello, I'm 17 years old computer enthusiast, and this is my website
@@ -91,12 +114,6 @@ $dotenv->load();
 <?php
 // VISITORS INCREMENT
 $format = "est. 2025 * visitor nr ";
-
-// get variables
-$host = $_ENV['DB_HOST'];
-$db   = $_ENV['DB_NAME'];
-$user = $_ENV['DB_USER'];
-$pass = $_ENV['DB_PASS'];
 
 try {
   $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass, [
