@@ -29,6 +29,12 @@ sudo systemctl daemon-reload
 sudo systemctl enable telegram-bot
 sudo systemctl start telegram-bot
 
+(crontab for sys_status)
+crontab -e 
+    (write that)
+*/10 * * * * /web/site/dir/status_check.sh
+
+
 (runit)
 sudo ln -s /etc/runit/sv/nginx /run/runit/service
 sudo ln -s /etc/runit/sv/mariadb /run/runit/service

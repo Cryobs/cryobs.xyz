@@ -4,10 +4,17 @@ MySQL
 
 CREATE DATABASE cryobs_xyz;
 USE cryobs_xyz;
+
 CREATE TABLE site_stats (
   id INT AUTO_INCREMENT PRIMARY KEY,
   visits INT NOT NULL DEFAULT 0,
   status VARCHAR(255)
 );
 INSERT INTO site_stats (visits, status) VALUES (0, Deploying website);
+
+CREATE TABLE sys_status (
+  url VARCHAR(255) PRIMARY KEY,
+  name VARCHAR(255),
+  status BOOLEAN
+);
 exit;

@@ -84,10 +84,33 @@ try {
           
           <section id="systems-status">
             <span class="header" >Systems status</span>
-            <div>Server: [OK]</div>
-            <div>Server: [OK]</div>
-            <div>Server: [OK]</div>
-            <div>Server: [OK]</div>
+<?php
+try {
+  $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass, [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC 
+  ]);
+
+  $stmt = $pdo->query("SELECT * FROM sys_status");
+
+  $results = $stmt->fetchAll();
+
+  foreach ($results as $result) {
+    echo "<div class='sys-container'>" . 
+      $result['name'] . 
+      ": [ " .
+      "<span class='sys-" .
+      $result['status'] .
+      "'>" .
+      $result['status'] . "</span>" .
+      " ]</div>";
+  }
+
+
+} catch (PDOException $e){
+  echo "";
+}
+?>
           </section>
 
           <div id="contact-info">

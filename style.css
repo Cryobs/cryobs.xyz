@@ -4,6 +4,8 @@
   --spec1:  #FF0; 
   --yellow: #FF0;
   --d-yellow: #550;
+  --green:  #0F0;
+  --red:    #F00;
 }
 
 @font-face {
@@ -249,6 +251,16 @@ section:hover .header {
 #changelog #changelog-list {
   max-height: 100%;
   overflow-x: scroll;
+}
+
+.sys-OK {
+  color: var(--green);
+  text-shadow: 0 0 10px var(--green);
+}
+
+.sys-ERROR {
+  color: var(--red);
+  text-shadow: 0 0 10px var(--red);
 }
 
 footer {
