@@ -1,0 +1,2 @@
+*/10 * * * * /app/status-check.sh >> /var/log/status-check.log 2>&1
+
