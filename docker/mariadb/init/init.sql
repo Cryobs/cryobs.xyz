@@ -8,7 +8,7 @@ INSERT INTO site_stats (id, visits, status)
 VALUES (1, 0, 'Deploying website')
 ON DUPLICATE KEY UPDATE id = id;
 
-CREATE TABLE IF NOT EXISTS ys_status (
+CREATE TABLE IF NOT EXISTS sys_status (
   url VARCHAR(255) PRIMARY KEY,
   name VARCHAR(255),
   status BOOLEAN
