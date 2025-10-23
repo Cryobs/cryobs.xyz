@@ -22,7 +22,7 @@ for i in ${!URLS[@]}; do
   else
     status="ERROR"
   fi
-  mariadb -u "$DB_USER" -p"$DB_PASS" -D "$DB_NAME" -Bse \
+  mariadb -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASS" -D "$DB_NAME" -Bse \
     "REPLACE INTO sys_status (url, name, status) VALUES ('${URLS[$i]}', '${NAMES[$i]}', '$status');"
 done
 

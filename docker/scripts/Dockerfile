@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-RUN apk add --no-cache bash curl dcron
+RUN apk add --no-cache bash curl dcron mariadb
 
 WORKDIR /app
 
