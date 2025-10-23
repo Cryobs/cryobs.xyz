@@ -11,7 +11,7 @@ ON DUPLICATE KEY UPDATE id = id;
 CREATE TABLE IF NOT EXISTS sys_status (
   url VARCHAR(255) PRIMARY KEY,
   name VARCHAR(255),
-  status BOOLEAN
+  status VARCHAR(255)
 );
 
 
