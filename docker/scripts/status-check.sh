@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Script that checks url availability
 # and write to DB
