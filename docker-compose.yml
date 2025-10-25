@@ -34,7 +34,7 @@ services:
       - cryobs-xyz-php
     networks:
       - default
-      #  - cloudflare-net
+      - cloudflare-net
     restart: unless-stopped
 
   cryobs-xyz-mariadb:
@@ -93,6 +93,6 @@ volumes:
 networks:
   default:
     driver: bridge
-    #  cloudflare-net:
-    #external: true
+  cloudflare-net:
+    external: true
 
