@@ -47,23 +47,23 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 
-  background-color: rgba(0, 0, 0, 1);
-
   margin: 0;
 }
 
 body::before {
   content: "";
-  position: absolute;
+  position: fixed;
   inset: 0;
+
   background-image: url('static/background2-1.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-blend-mode: multiply;
   background-attachment: fixed;
 
+
   filter: invert(1) grayscale(100%);
+  z-index: -1;
 }
 
 
@@ -98,26 +98,23 @@ body::before {
 
 @keyframes pulse {
   0% {
-    transform: scale(1);
+    transform: translate(50%, -50%) scale(1) rotate(-10deg);
   }
   50% {
-    transform: scale(1.1);
+    transform: translate(50%, -50%) scale(1.1) rotate(-10deg);
   }
   100% {
-    transform: scale(1);
+    transform: translate(50%, -50%) scale(1) rotate(-10deg);
   }
 }
 
 #logo-status {
   font-family: "Minecraft Regular";
   position: absolute;
-  display: flex;
-  flex-wrap: nowrap;
-  rotate: -10deg;
   font-weight: bold;
   color: var(--yellow);
-  top: -5px;
-  right: -60px;
+  top: 0.2rem;
+  right: -0.5rem;
   animation: pulse 2s ease-in-out infinite;
   font-size: 16px;
   text-align: center;
@@ -203,6 +200,10 @@ section:hover .header {
   font-weight: bold;
 }
 
+#nav-list {
+  max-height: 119px;
+}
+
 #nav-list ul {
   margin: 0;
   list-style: none;
@@ -253,6 +254,15 @@ section:hover .header {
   overflow-x: scroll;
 }
 
+#systems-status {
+  max-height: 132px;
+}
+
+.scroll-container {
+  height: 100%;
+  overflow-y: scroll;
+}
+
 .sys-OK {
   color: var(--green);
   text-shadow: 0 0 10px var(--green);
@@ -265,7 +275,7 @@ section:hover .header {
 
 footer {
   text-align: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 0 1px rgba(0, 0, 0, 1);
 }
 
 @media only screen and (max-width: 670px) {
@@ -282,7 +292,7 @@ footer {
   }
 
   .flex-container {
-    margin-top: 10px;
+    padding-top: 10px;
   }
 
 
@@ -303,17 +313,18 @@ footer {
     justify-content: center;
     position: relative;
     text-align: center;
-    padding: 5px;
+    padding-top: 5px;
   }
 
   #nav-small #logo {
     font-size: 24px;
-    top: 0;
+    position: static;
   }
 
   #nav-small #logo-status {
-    top: 20px;
-    right: -35px;
+    top: auto;
+    bottom: -0.8rem;
+    right: 0.5rem;
     font-size: 12px;
   }
 
@@ -338,6 +349,7 @@ footer {
 
   #nav-small #nav-list {
     display: none;
+    height: auto;
     position: relative;
   }
 

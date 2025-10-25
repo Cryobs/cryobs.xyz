@@ -16,6 +16,7 @@ $pass = getenv('DB_PASS');
 
 // get status from DB
 $status = "Here will be status!";
+
 try {
   $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass, [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -77,6 +78,7 @@ try {
           
           <section id="systems-status">
             <span class="header" >Systems status</span>
+              <div class="scroll-container">
 <?php
 try {
   $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass, [
@@ -104,6 +106,7 @@ try {
   echo "";
 }
 ?>
+              </div>
           </section>
 
           <div id="contact-info">
@@ -145,7 +148,7 @@ try {
   echo $format . $results[0]['visits'] . "#";
 
 } catch (PDOException $e) {
-  echo $e;
+  echo $format . "?";
 }
 ?>
         </footer>
@@ -155,12 +158,14 @@ try {
         <img id="aside-img" src="static/hotel-panorama.jpg">
         <section id="nav-list">
           <span class="header">navigation</span>
-          <ul>
-            <a href="/" class="hover"><li><span>home</span></li></a>
-            <a href="about-me"><li><span>about me</span></li></a>
-            <a href="blog"><li><span>blog</span></li></a>
-            <a href="portfolio"><li><span>portfolio</span></li></a>
-          </ul>
+          <div class="scroll-container">
+            <ul>
+              <a href="/" class="hover"><li><span>home</span></li></a>
+              <a href="about-me"><li><span>about me</span></li></a>
+              <a href="blog"><li><span>blog</span></li></a>
+              <a href="portfolio"><li><span>portfolio</span></li></a>
+            </ul>
+          </div>
         </section>
         
         <section id="changelog">
