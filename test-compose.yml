@@ -1,93 +1,84 @@
 services:
   php:
+    container_name: cryobx-xyz-test-php
     build:
       context: .
       dockerfile: docker/php/Dockerfile
     user: "1000:1000"
-    volumes: 
+    volumes:
       - ./src:/var/www
       - ./.git:/var/www/.git:ro
     networks:
-      - default
-    depends_on:
-      - mariadb
+      - test-net
     environment:
       PHP_IDE_CONFIG: serverName=Dockerfile
-      #change in prod
-      DB_HOST: ${DB_HOST}
+      DB_HOST: mariadb
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
-    command: sh -c "git config --global --add safe.directory /var/www"
     restart: unless-stopped
 
   nginx:
+    container_name: cryobx-xyz-test-nginx
     image: nginx:latest
-    ports:
-      - "80:80"
     volumes:
       - ./src:/var/www/
       - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
     networks:
-      - default
-      - cloudflare-net
+      - test-net
     restart: unless-stopped
 
   mariadb:
+    container_name: cryobx-xyz-test-mariadb
     image: mariadb:latest
     environment:
-      #change in prod
       MYSQL_ROOT_PASSWORD: ${DB_PASS}
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASS}
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - mariadb_test_data:/var/lib/mysql
       - ./docker/mariadb/init:/docker-entrypoint-initdb.d
-    ports:
-      - "3306:3306"
     networks:
-      - default
+      - test-net
     restart: unless-stopped
 
   bot:
+    container_name: cryobx-xyz-test-bot
     build:
       context: .
       dockerfile: ./docker/bot/Dockerfile
     environment:
-      #change in prod
       BOT_TOKEN: ${BOT_TOKEN}
       ADMIN_ID: ${ADMIN_ID}
-      DB_HOST: ${DB_HOST}
+      DB_HOST: mariadb
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
-    restart: unless-stopped
     networks:
-      - default
+      - test-net
+    restart: unless-stopped
 
   scripts:
+    container_name: cryobx-xyz-test-scripts
     build:
       context: .
       dockerfile: ./docker/scripts/Dockerfile
-    restart: unless-stopped
     networks:
-      - default
+      - test-net
     environment:
-      DB_HOST: ${DB_HOST}
+      DB_HOST: mariadb
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
     init: true
+    restart: unless-stopped
 
 volumes:
-  mariadb_data:
+  mariadb_test_data:
 
 networks:
-  default:
+  test-net:
     driver: bridge
-  cloudflare-net:
-    external: true
-

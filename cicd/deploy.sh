@@ -2,7 +2,8 @@
 set -e
 
 WORK_DIR=$1
-REPO_URL="~/pub/cryobs.xyz.git"
+REPO_URL="/home/git/pub/cryobs.xyz.git"
+IMPORT_DIR="/tmp/cryobs.xyz/build_images"
 
 echo "Start deploying..."
 
@@ -21,9 +22,6 @@ if [ ! -d "$WORK_DIR/.env" ]; then
     echo "Please login to the server and create a .env in $WORK_DIR, and run deploy.sh"
     exit 1
 fi
-
-echo "Build new version..."
-docker-compose build
 
 echo "Run new version..."
 docker-compose up -d

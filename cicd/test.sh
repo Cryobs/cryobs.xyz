@@ -1,61 +1,63 @@
-#!/bin/sh
-set -e
-
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-
+#!/bin/bash
+set -e 
+WORK_DIR="$(cd "$(dirname "$0")" && pwd)/.."
+PROJECT="cryobx-xyz-test"
+docker-compose -f $WORK_DIR/test-compose.yml \
+              -p $PROJECT \
+              up -d 
 cleanup() {
-  echo "Cleaning up..."
-  docker stop cryobs-xyz-test >/dev/null 2>&1 || true
-  docker rm -f cryobs-xyz-test >/dev/null 2>&1 || true
-  docker image rm cryobs-xyz-test >/dev/null 2>&1 || true
+  echo "Cleanup..."
+  docker-compose -f $WORK_DIR/test-compose.yml \
+                -p $PROJECT \
+                down
 }
 trap cleanup EXIT
-
-echo "Build test image..."
-docker build -t cryobs-xyz-test "$SCRIPT_DIR/.."
-echo "Start test image..."
-docker run --privileged -d --name cryobs-xyz-test cryobs-xyz-test
-
-echo "Waiting for Docker daemon inside container..."
-until docker exec cryobs-xyz-test docker info >/dev/null 2>&1; do
-  sleep 1
-done
-echo "Docker daemon is ready!"
-
-echo "Checking network..."
-docker exec cryobs-xyz-test sh -c \
-  'docker network inspect cloudflare-net >/dev/null 2>&1 || docker network create --driver bridge cloudflare-net'
-
-
-echo "Starting docker-compose... (it take long)"
-docker exec cryobs-xyz-test docker compose up -d
-
 check_container_running() {
   local name="$1"
-  docker exec cryobs-xyz-test sh -c "docker inspect -f '{{.State.Running}}' $name 2>/dev/null" | grep -q true
+  docker inspect -f '{{.State.Running}}' $name 2>/dev/null | grep -q true
 }
-
-echo "Waiting for nginx and php containers..."
+echo "Waiting for containers..."
+CONTAINERS=(
+  "${PROJECT}-nginx"
+  "${PROJECT}-php"
+  "${PROJECT}-mariadb"
+  "${PROJECT}-bot"
+  "${PROJECT}-scripts"
+)
 for i in $(seq 1 60); do
-  if check_container_running cryobs-xyz-nginx && check_container_running cryobs-xyz-php; then
-    echo "nginx and php are running!"
+  all_running=true
+  for c in "${CONTAINERS[@]}"; do
+    if ! check_container_running "$c"; then
+      all_running=false
+      break
+    fi
+  done
+  if $all_running; then
+    echo "All containers are running!"
     break
   fi
-  sleep 2
-  [ $i -eq 60 ] && echo "nginx/php not started in time" && exit 1
+  sleep 1
+  [ $i -eq 60 ] && echo "Containers not started in time" && exit 1
 done
 
-
+#Here starts tests
 echo "Checking site response..."
-docker exec cryobs-xyz-test sh -c 'apk add --no-cache curl >/dev/null'
-HTTP_CODE=$(docker exec cryobs-xyz-test sh -c "curl -s -o /dev/null -w '%{http_code}' http://localhost")
+echo "Waiting for nginx to be ready..."
 
-if [ "$HTTP_CODE" = "200" ]; then
-  echo "Site responded successfully (HTTP 200)."
-else
-  echo "Site responded with code $HTTP_CODE"
-  docker exec cryobs-xyz-test docker ps
-  docker exec cryobs-xyz-test docker logs cryobs-xyz-nginx || true
-  docker exec cryobs-xyz-test docker logs cryobs-xyz-php || true
-  exit 1
-fi
+for i in $(seq 1 30); do
+  HTTP_CODE=$(docker exec $PROJECT-php curl -s -o /dev/null -w '%{http_code}' http://nginx 2>&1 || echo "000")
+  echo "Attempt $i/30: Got HTTP $HTTP_CODE"
+  
+  if [ "$HTTP_CODE" = "200" ]; then
+    echo "Site responded successfully (HTTP 200)."
+    exit 0
+  fi
+  sleep 1
+done
+
+echo "Site did not respond with HTTP 200 in time"
+echo "=== Final nginx logs ==="
+docker logs "${PROJECT}-nginx"
+echo "=== Final PHP logs ==="
+docker logs "${PROJECT}-php"
+exit 1
