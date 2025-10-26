@@ -10,7 +10,7 @@ echo "Start deploying..."
 if [ -d "$WORK_DIR/.git" ]; then
     echo "Existing repo found, pulling latest changes..."
     cd "$WORK_DIR"
-    git pull "$REPO_DIR"
+    git pull "$REPO_URL"
 else
     echo "No repo found, cloning new one..."
     mkdir -p "$WORK_DIR"
