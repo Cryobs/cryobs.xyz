@@ -2,7 +2,7 @@
 set -e
 
 WORK_DIR=$1
-REPO_URL="git@raspi.local:~/pub/cryobs.xyz.git"
+REPO_URL="~/pub/cryobs.xyz.git"
 
 echo "Start deploying..."
 
@@ -18,7 +18,7 @@ else
 fi
 
 if [ ! -d "$WORK_DIR/.env" ]; then
-    echo "Please login to the server and create a .env in $WORK_DIR"
+    echo "Please login to the server and create a .env in $WORK_DIR, and run deploy.sh"
     exit 1
 fi
 
