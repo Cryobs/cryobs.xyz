@@ -16,6 +16,7 @@ services:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
+    command: sh -c "git config --global --add safe.directory /var/www"
     restart: unless-stopped
 
   nginx:

@@ -39,7 +39,6 @@ WORKDIR /var/www
 COPY ./docker/php/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 RUN chown -R www-data:www-data /var/www
-RUN git config --global --add safe.directory /var/www
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
