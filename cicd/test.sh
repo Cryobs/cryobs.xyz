@@ -7,6 +7,7 @@ cleanup() {
   echo "Cleaning up..."
   docker stop cryobs-xyz-test >/dev/null 2>&1 || true
   docker rm -f cryobs-xyz-test >/dev/null 2>&1 || true
+  docker image rm cryobs-xyz-test >/dev/null 2>&1 || true
 }
 trap cleanup EXIT
 
