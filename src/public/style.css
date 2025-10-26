@@ -6,6 +6,7 @@
   --d-yellow: #550;
   --green:  #0F0;
   --red:    #F00;
+  --white:  #FFF;
 }
 
 @font-face {
@@ -275,7 +276,9 @@ section:hover .header {
 
 footer {
   text-align: center;
-  text-shadow: 0 0 1px rgba(0, 0, 0, 1);
+  text-shadow: 0 0 10px #000;
+  color: var(--white);
+  
 }
 
 @media only screen and (max-width: 670px) {
