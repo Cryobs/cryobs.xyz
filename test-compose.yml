@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
-    user: "1000:1000"
+    user: "1001:1001"
     volumes:
       - ./src:/var/www
       - ./.git:/var/www/.git:ro
