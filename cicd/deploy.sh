@@ -13,7 +13,7 @@ if [ -d "$WORK_DIR/.git" ]; then
 else
     echo "No repo found, cloning new one..."
     mkdir -p "$WORK_DIR"
-    git clone "$REPO_URL" "$WORK_DIR" >/dev/null 2>&1
+    git clone "$REPO_URL" "$WORK_DIR"
     cd "$WORK_DIR"
 fi
 
