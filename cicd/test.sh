@@ -27,7 +27,7 @@ docker exec cryobs-xyz-test sh -c \
 
 
 echo "Starting docker-compose... (it take long)"
-docker exec -it cryobs-xyz-test docker compose up -d
+docker exec cryobs-xyz-test docker compose up -d
 
 check_container_running() {
   local name="$1"
