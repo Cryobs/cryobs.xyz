@@ -103,7 +103,7 @@ try {
 
 
 } catch (PDOException $e){
-  echo "";
+  echo "Waiting for servers...";
 }
 ?>
               </div>
@@ -148,7 +148,7 @@ try {
   echo $format . $results[0]['visits'] . "#";
 
 } catch (PDOException $e) {
-  echo $e;
+  echo $format . "?";
 }
 ?>
         </footer>
