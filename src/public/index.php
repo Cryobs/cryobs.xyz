@@ -148,7 +148,7 @@ try {
   echo $format . $results[0]['visits'] . "#";
 
 } catch (PDOException $e) {
-  echo $format . "?";
+  echo $e;
 }
 ?>
         </footer>
