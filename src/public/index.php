@@ -90,6 +90,10 @@ try {
 
   $results = $stmt->fetchAll();
 
+  if (empty($results)) {
+    echo "Waiting for servers...";
+  }
+
   foreach ($results as $result) {
     echo "<div class='sys-container'>" . 
       $result['name'] . 
@@ -119,9 +123,28 @@ try {
         
         <section id="current-focus">
           <span class="header" >lately I've been into</span>
-          <p>my website</p>
-          <p>Project: Fenix (book)</p>
-          <p>Truman show (film)</p>
+<?php
+try {
+  $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass, [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC 
+  ]);
+  $stmt = $pdo->query("SELECT * FROM im_into ORDER BY id DESC LIMIT 3");
+
+  $results = $stmt->fetchAll();
+
+  if (empty($results)) {
+    echo "Waiting for servers...";
+  }
+
+  foreach ($results as $result) {
+    echo "<p class='im-into'>" . $result['text'] . "</p>";
+  }
+
+} catch (PDOException $e) {
+  echo "Nothing :)";
+}
+?>
         </section>
  
         <section id="latest-post">

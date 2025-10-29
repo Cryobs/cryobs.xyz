@@ -3,17 +3,12 @@
 # Script that checks url availability
 # and write to DB
 
-URLS=( 
-  "https://cryobs.xyz"
-  "http://192.168.100.14:8080/login" 
-  "http://192.168.100.14:4533/app" 
-)
+mapfile -t URLS < <(mariadb -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASS" -D "$DB_NAME" -Bse \
+  "SELECT url FROM sys_status;")
 
-NAMES=(
-  "cryobs.xyz"
-  "File Server"
-  "Music Server"
-)
+
+mapfile -t NAMES < <(mariadb -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASS" -D "$DB_NAME" -Bse \
+  "SELECT name FROM sys_status;")
 
 for i in ${!URLS[@]}; do 
   status=$(curl -Is ${URLS[$i]} | head -1 | cut -d " " -f 2);
