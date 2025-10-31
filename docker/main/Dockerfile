@@ -1,4 +1,4 @@
-# =====Builder=====
+# ===== Builder =====
 FROM golang:alpine AS builder
 WORKDIR /app
 
@@ -8,7 +8,7 @@ RUN go mod download
 COPY ./docker/main .
 RUN go build -o server main.go
 
-# =====Runtime=====
+# ===== Runtime =====
 FROM alpine:latest
 
 WORKDIR /app

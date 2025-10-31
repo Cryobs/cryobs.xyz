@@ -18,11 +18,9 @@ check_container_running() {
 }
 echo "Waiting for containers..."
 CONTAINERS=(
-  "${PROJECT}-nginx"
-  "${PROJECT}-php"
   "${PROJECT}-mariadb"
   "${PROJECT}-bot"
-  "${PROJECT}-scripts"
+  "${PROJECT}-main"
 )
 for i in $(seq 1 60); do
   all_running=true
@@ -42,10 +40,10 @@ done
 
 #Here starts tests
 echo "Checking site response..."
-echo "Waiting for nginx to be ready..."
+echo "Waiting for site to be ready..."
 
 for i in $(seq 1 30); do
-  HTTP_CODE=$(docker exec $PROJECT-php curl -s -o /dev/null -w '%{http_code}' http://nginx 2>&1 || echo "000")
+  HTTP_CODE=$(docker exec $PROJECT-main curl -s -o /dev/null -w '%{http_code}' http://localhost:8080 2>&1 || echo "000")
   echo "Attempt $i/30: Got HTTP $HTTP_CODE"
   
   if [ "$HTTP_CODE" = "200" ]; then
@@ -56,8 +54,6 @@ for i in $(seq 1 30); do
 done
 
 echo "Site did not respond with HTTP 200 in time"
-echo "=== Final nginx logs ==="
-docker logs "${PROJECT}-nginx"
-echo "=== Final PHP logs ==="
-docker logs "${PROJECT}-php"
+echo "===== main logs ====="
+docker logs "${PROJECT}-main"
 exit 1

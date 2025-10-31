@@ -1,36 +1,4 @@
 services:
-  php:
-    container_name: cryobx-xyz-test-php
-    build:
-      context: .
-      dockerfile: docker/php/Dockerfile
-    user: "1001:1001"
-    volumes:
-      - ./src:/var/www
-      - ./.git:/var/www/.git:ro
-    networks:
-      - test-net
-    environment:
-      PHP_IDE_CONFIG: serverName=Dockerfile
-      DB_HOST: mariadb
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASS: ${DB_PASS}
-    command: sh -c "git config --global --add safe.directory /var/www"
-    restart: unless-stopped
-
-  nginx:
-    container_name: cryobx-xyz-test-nginx
-    image: nginx:latest
-    volumes:
-      - ./src:/var/www/
-      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-    depends_on:
-      - php
-    networks:
-      - test-net
-    restart: unless-stopped
-
   mariadb:
     container_name: cryobx-xyz-test-mariadb
     image: mariadb:latest
@@ -62,11 +30,11 @@ services:
       - test-net
     restart: unless-stopped
 
-  scripts:
-    container_name: cryobx-xyz-test-scripts
+  main:
+    container_name: cryobx-xyz-test-main
     build:
       context: .
-      dockerfile: ./docker/scripts/Dockerfile
+      dockerfile: ./docker/main/Dockerfile
     networks:
       - test-net
     environment:
