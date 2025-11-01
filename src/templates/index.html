@@ -57,6 +57,7 @@
             <span class="header" >Systems status</span>
               <div class="scroll-container">
                 <!-- Systems Status -->
+                {{ .sys_statuses }}
               </div>
           </section>
 
@@ -71,6 +72,7 @@
         <section id="current-focus">
           <span class="header" >lately I've been into</span>
           <!-- Im into -->
+          {{ .im_intos }} 
         </section>
  
         <section id="latest-post">
@@ -101,6 +103,7 @@
           <span class="header">changelog</span>
           <div id="changelog-list">
             <!-- changelog -->
+            {{ .changelog }}
           </div>
 
         </section>

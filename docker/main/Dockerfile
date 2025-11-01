@@ -12,17 +12,17 @@ RUN go build -o server main.go
 FROM alpine:latest
 
 WORKDIR /app
-RUN apk add --no-cache bash curl dcron mariadb-client
+RUN apk add --no-cache bash curl dcron mariadb-client git
 
 # Copy binary
 COPY --from=builder /app/server .
 
-# Copy .env
-COPY ./.env /app/.env
-
 # Copy src 
 COPY ./src/templates /app/templates
 COPY ./src/static /app/static 
+
+# Copy .git
+COPY ./.git /app/.git
 
 # Copy scripts
 COPY ./docker/main/scripts/status-check.sh /app/status-check.sh
