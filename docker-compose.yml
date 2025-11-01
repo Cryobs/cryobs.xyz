@@ -35,6 +35,7 @@ services:
       context: .
       dockerfile: ./docker/main/Dockerfile
     restart: unless-stopped
+    user: "1001:1001"
     ports:
       - "80:8080"
     networks:
