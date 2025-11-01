@@ -35,7 +35,7 @@ services:
       context: .
       dockerfile: ./docker/main/Dockerfile
     restart: unless-stopped
-    user: "1001:1001"
+    user: "1000:1000"
     ports:
       - "80:8080"
     networks:
@@ -48,6 +48,7 @@ services:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
+      GIN_MODE: ${GIN_MODE}
     init: true
 
 volumes:

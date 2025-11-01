@@ -223,6 +223,8 @@ func getGitCommits() ([]Commit, error) {
 		return nil, nil
 	}
 
+	log.Default().Println(raw)
+
 	lines := strings.Split(strings.TrimSpace(raw), "\n")
 	var commits []Commit
 	for _, line := range lines {
