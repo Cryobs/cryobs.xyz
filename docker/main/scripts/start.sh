@@ -2,8 +2,8 @@
 set -e 
 
 echo "Starting cron..."
-crond -l 2 &
+crond -f -l 2 &
 
 echo "Starting server..."
-./server
+exec ./server
 

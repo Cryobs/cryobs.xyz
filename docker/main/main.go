@@ -30,6 +30,9 @@ func main() {
 		log.Fatal(err)
 	}
 
+	/* git fix */
+	exec.Command("git", "config", "--global", "--add", "safe.directory", "/app").Output()
+	
 	/* entry points */
 	r.GET("/", func(c *gin.Context) {
 		c.HTML(200, "index.html", gin.H {
@@ -120,8 +123,6 @@ func connect_to_db() (*gorm.DB, *sql.DB, error) {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?charset=utf8mb4&parseTime=True&loc=Local", 
 											DB_USER, DB_PASS, DB_HOST, DB_NAME)
 
-	log.Default().Println(dsn)
-
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
@@ -210,11 +211,15 @@ type Commit struct {
 }
 
 func getGitCommits() ([]Commit, error) {
+
 	cmd := exec.Command("git", "log", "--pretty=format:%ad|%s", "--date=format:%d.%m.%y")
 	var out bytes.Buffer
+	var errout bytes.Buffer
+	cmd.Stderr = &errout
 	cmd.Stdout = &out
 
 	if err := cmd.Run(); err != nil {
+		log.Default().Println(errout.String())
 		return nil, err
 	}
 
@@ -222,8 +227,6 @@ func getGitCommits() ([]Commit, error) {
 	if strings.TrimSpace(raw) == "" {
 		return nil, nil
 	}
-
-	log.Default().Println(raw)
 
 	lines := strings.Split(strings.TrimSpace(raw), "\n")
 	var commits []Commit
@@ -245,7 +248,6 @@ func render_changelog() string {
 	if err != nil {
 		return "Nothing here :)"
 	}
-
 	for _, commit := range commits {
 		fmt.Fprintf(&b, 
 				"<div class='commit'><small><strong>%s</strong>: %s</small></div>",
