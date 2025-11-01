@@ -21,9 +21,6 @@ COPY --from=builder /app/server .
 COPY ./src/templates /app/templates
 COPY ./src/static /app/static 
 
-# Copy .git
-COPY ./.git /app/.git
-
 # Copy scripts
 COPY ./docker/main/scripts/status-check.sh /app/status-check.sh
 COPY ./docker/main/scripts/cronjob /etc/crontabs/root

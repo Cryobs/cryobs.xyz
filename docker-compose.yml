@@ -39,6 +39,9 @@ services:
       - "8080:8080"
     networks:
       - default
+      - cloudflare-net
+    volumes:
+      - ./.git:/app/.git:ro
     environment:
       DB_HOST: ${DB_HOST}
       DB_NAME: ${DB_NAME}

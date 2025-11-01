@@ -2,16 +2,13 @@ services:
   mariadb:
     container_name: cryobx-xyz-test-mariadb
     image: mariadb:latest
-    environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASS}
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASS}
     volumes:
       - mariadb_test_data:/var/lib/mysql
       - ./docker/mariadb/init:/docker-entrypoint-initdb.d
     networks:
       - test-net
+    env_file:
+      - ./test.env
     restart: unless-stopped
 
   bot:
@@ -19,13 +16,8 @@ services:
     build:
       context: .
       dockerfile: ./docker/bot/Dockerfile
-    environment:
-      BOT_TOKEN: ${BOT_TOKEN}
-      ADMIN_ID: ${ADMIN_ID}
-      DB_HOST: mariadb
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASS: ${DB_PASS}
+    env_file:
+      - ./test.env
     networks:
       - test-net
     restart: unless-stopped
@@ -37,11 +29,8 @@ services:
       dockerfile: ./docker/main/Dockerfile
     networks:
       - test-net
-    environment:
-      DB_HOST: mariadb
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASS: ${DB_PASS}
+    env_file:
+      - ./test.env
     init: true
     restart: unless-stopped
 

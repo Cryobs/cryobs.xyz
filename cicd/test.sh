@@ -2,22 +2,22 @@
 set -e 
 WORK_DIR="$(cd "$(dirname "$0")" && pwd)/.."
 PROJECT="cryobx-xyz-test"
-docker-compose -f $WORK_DIR/test-compose.yml \
+docker compose -f $WORK_DIR/test-compose.yml \
               -p $PROJECT \
-              up -d 
+              up -d --build
 cleanup() {
   echo "Cleanup..."
-  docker-compose -f $WORK_DIR/test-compose.yml \
+  docker compose -f $WORK_DIR/test-compose.yml \
                 -p $PROJECT \
                 down
 }
 trap cleanup EXIT
 check_container_running() {
   local name="$1"
-  docker-compose ps --status running --services | grep -qx "$name"
+  docker compose ps --status running --services | grep -qx "$name"
 }
 echo "Waiting for containers..."
-CONTAINERS=$(docker-compose ps --services)
+CONTAINERS=$(docker compose ps --services)
 MAX_RETRIES=60
 SLEEP_TIME=1
 

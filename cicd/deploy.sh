@@ -18,7 +18,7 @@ cp "$WORK_DIR/.env" "$ENV_BACKUP"
 if [ -f "$WORK_DIR/docker-compose.yml" ]; then
     echo "Stopping containers..."
     cd "$WORK_DIR"
-    docker-compose down || true
+    docker compose down || true
 fi
 
 echo "Cleaning work directory..."
@@ -35,6 +35,6 @@ cp "$ENV_BACKUP" "$WORK_DIR/.env"
 rm "$ENV_BACKUP"
 
 echo "Starting new version..."
-docker-compose up -d --build
+docker compose up -d --build
 
 echo "Deployment complete!"
