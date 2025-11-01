@@ -14,14 +14,13 @@ cleanup() {
 trap cleanup EXIT
 check_container_running() {
   local name="$1"
-  docker inspect -f '{{.State.Running}}' $name 2>/dev/null | grep -q true
+  docker-compose ps --status running --services | grep -qx "$name"
 }
 echo "Waiting for containers..."
-CONTAINERS=(
-  "${PROJECT}-mariadb"
-  "${PROJECT}-bot"
-  "${PROJECT}-main"
-)
+CONTAINERS=$(docker-compose ps --services)
+MAX_RETRIES=60
+SLEEP_TIME=1
+
 for i in $(seq 1 60); do
   all_running=true
   for c in "${CONTAINERS[@]}"; do
@@ -34,8 +33,8 @@ for i in $(seq 1 60); do
     echo "All containers are running!"
     break
   fi
-  sleep 1
-  [ $i -eq 60 ] && echo "Containers not started in time" && exit 1
+  sleep $SLEEP_TIME
+  [ $i -eq $MAX_RETRIES ] && echo "Containers not started in time" && exit 1
 done
 
 #Here starts tests

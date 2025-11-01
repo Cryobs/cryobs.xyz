@@ -17,6 +17,9 @@ RUN apk add --no-cache bash curl dcron mariadb-client
 # Copy binary
 COPY --from=builder /app/server .
 
+# Copy .env
+COPY ./.env /app/.env
+
 # Copy src 
 COPY ./src/templates /app/templates
 COPY ./src/static /app/static 
