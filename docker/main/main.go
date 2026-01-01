@@ -8,7 +8,10 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
+	"time"
+	"sort"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/mysql"
@@ -42,11 +45,42 @@ func main() {
 			"sys_statuses": template.HTML(render_sys_statuses(db)),
 			"im_intos": template.HTML(render_im_intos(db, 3)),
 			"changelog": template.HTML(render_changelog()),
+			"year": time.Now().Year(),
 		})
-		
-
 	})
 
+
+
+	r.GET("/gallery", func(c *gin.Context) {
+		c.HTML(200, "gallery.html", gin.H {
+			"title": "art gallery",
+			"Arts": load_arts(db, "./static/art"),
+			"year": time.Now().Year(),
+		})
+	})
+
+	r.POST("/like", func(c *gin.Context) {
+		name := c.PostForm("id")
+		cookieName := "liked_" + name 
+		if _, err := c.Cookie(cookieName); err == nil {
+			c.Redirect(303, "/gallery#" + name)
+			return
+		}
+
+		c.SetCookie(cookieName, "1", 86400, "/", "", false, true)
+		res := db.First(&ArtLike{}, "name = ?", name)
+		if res.Error != nil {
+			db.Create(&ArtLike{
+				Name: 	name,
+				Likes: 1,
+			})
+		} else {
+			db.Model(&ArtLike{}).Where("name = ?", name).UpdateColumn("likes", gorm.Expr("likes + ?", 1))
+		}
+
+		c.Redirect(303, "/gallery#" + name)
+	})
+	
 	r.Run(":8080")
 }
 
@@ -59,6 +93,87 @@ func setup_router() *gin.Engine {
 	r.LoadHTMLGlob("templates/*.html")
 
 	return r
+}
+
+type Art struct {
+	Name 		string 
+	Date    time.Time
+	Content string
+	Likes 	int
+}
+
+type ArtLike struct {
+	Name 		string `gorm:"primaryKey"`
+	Likes 	int
+}
+
+func (ArtLike) TableName() string {
+	return "art_likes"
+}
+
+func TrimEmptyLines(s string) string {
+	lines := strings.Split(s, "\n")
+	start := 0
+	end := len(lines)
+
+	if len(lines) > 0 && lines[0] == "" {
+		start = 1
+	}
+
+	for start < end && strings.TrimSpace(lines[start]) == "" {
+		start++
+	}
+
+	for end > start && strings.TrimSpace(lines[end-1]) == "" {
+		end--
+	}
+
+	return "\n" + strings.Join(lines[start:end], "\n")
+}
+
+func load_arts(db *gorm.DB, dir string) []Art {
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		return nil	
+	}
+
+	var arts []Art 
+
+	for _, entry := range entries {
+		if entry.IsDir() {
+			continue
+		}
+
+		path := filepath.Join(dir, entry.Name())
+		data, err := os.ReadFile(path)
+		if err != nil {
+			return nil	
+		}
+
+		info, _ := entry.Info()
+
+		var like ArtLike
+		res := db.First(&like, "name = ?", entry.Name())
+		likes := 0
+		if res.Error == nil {
+			likes = like.Likes
+		}
+
+
+		arts = append(arts, Art{
+			Name: 		entry.Name(),
+			Content: 	TrimEmptyLines(string(data)),
+			Date: 		info.ModTime(),
+			Likes: 		likes,
+		})
+
+	}
+
+	sort.Slice(arts, func(i, j int) bool {
+			return arts[i].Date.After(arts[j].Date)
+	})
+
+	return arts
 }
 
 /* Site Stats */
@@ -143,7 +258,7 @@ func connect_to_db() (*gorm.DB, *sql.DB, error) {
 }
 
 func init_db(db *gorm.DB) error {
-	err := db.AutoMigrate(&SiteStats{}, &SysStatus{}, &ImInto{})
+	err := db.AutoMigrate(&SiteStats{}, &SysStatus{}, &ImInto{}, &ArtLike{})
 	if err != nil {
 		return err
 	}
@@ -152,7 +267,7 @@ func init_db(db *gorm.DB) error {
 	if err != nil {
 		return err
 	}
-	
+
 	return err
 }
 
