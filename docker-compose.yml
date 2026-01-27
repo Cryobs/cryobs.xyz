@@ -22,7 +22,7 @@ services:
       #change in prod
       BOT_TOKEN: ${BOT_TOKEN}
       ADMIN_ID: ${ADMIN_ID}
-      DB_HOST: ${DB_HOST}
+      DB_HOST: mariadb
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
@@ -44,7 +44,7 @@ services:
       - ./.git:/app/.git:ro
       - ./src/static:/app/static
       - ./src/templates:/app/templates
-      - ${ART_DIR}:/app/static/art
+      - ${ART_DIR:-/app/art}:/app/static/art
     environment:
       DB_HOST: ${DB_HOST}
       DB_NAME: ${DB_NAME}
