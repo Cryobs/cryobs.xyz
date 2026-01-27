@@ -22,6 +22,11 @@ COPY ./docker/main/scripts/status-check.sh /app/status-check.sh
 COPY ./docker/main/scripts/cronjob /etc/crontabs/root
 RUN chmod +x /app/status-check.sh
 
+
+
+COPY ./src/templates /app/templates
+COPY ./src/static /app/static
+
 # Start all
 COPY ./docker/main/scripts/start.sh /app/start.sh
 RUN chmod +x /app/start.sh
