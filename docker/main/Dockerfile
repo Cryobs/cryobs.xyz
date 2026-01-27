@@ -17,10 +17,6 @@ RUN apk add --no-cache bash curl dcron mariadb-client git
 # Copy binary
 COPY --from=builder /app/server .
 
-# Copy src 
-COPY ./src/templates /app/templates
-COPY ./src/static /app/static 
-
 # Copy scripts
 COPY ./docker/main/scripts/status-check.sh /app/status-check.sh
 COPY ./docker/main/scripts/cronjob /etc/crontabs/root

@@ -185,6 +185,8 @@ section:hover .header {
   display: inline-block;
   padding: 1em;
   background-color: black;
+  font-size: 13px;
+  font-weight: bold;
 }
 
 .art-container form button {

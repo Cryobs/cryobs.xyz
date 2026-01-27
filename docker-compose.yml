@@ -42,7 +42,9 @@ services:
       - cloudflare-net
     volumes:
       - ./.git:/app/.git:ro
-      - ${ART_DIR}:/app//static/art
+      - ./src/static:/app/static
+      - ./src/templates:/app/templates
+      - ${ART_DIR}:/app/static/art
     environment:
       DB_HOST: ${DB_HOST}
       DB_NAME: ${DB_NAME}
