@@ -44,7 +44,7 @@ services:
       - ./.git:/app/.git:ro
       - ./src/static:/app/static
       - ./src/templates:/app/templates
-      - ${ART_DIR:-/app/art}:/app/static/art
+      - ${ART_DIR:-/app/art/ascii}:/app/static/art
     environment:
       DB_HOST: ${DB_HOST}
       DB_NAME: ${DB_NAME}
