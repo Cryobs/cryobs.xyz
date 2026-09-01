@@ -12,7 +12,7 @@
                                                                               
   __                                                                      __  
  / _|                                /\                                  |_ \ 
- \________________/\________________-  -_______________/\___________________/
+ \________________/\________________-  -_______________/\___________________/ 
   ________________  ________________    _______________  ___________________  
  / _              \/                -  -               \/                 _ \ 
  \__|                                \/                                  |__/ 
@@ -35,7 +35,7 @@
    |                                                                      |   
    |    Hello, I'm 17 years old computer enthusiast, and this is my       |   
    |    website created with the idea of teach myself about web side      |   
-   |    of computers and of course I was exited about maintain all it     |   
+   |    of computers and of course I was exited about maintain it all     |   
    |    on my server :)                                                   |   
    |                                                                      |   
    |                                                                      |   
@@ -45,11 +45,11 @@
   ________________  ________________    _______________  ___________________  
  / _              \/                -  -               \/                 _ \ 
  \__|                                \/                                  |__/ 
-
+                                                                              
                              __              __                               
                             |_ \_____/\_____/ _|                              
                                |            |                                 
-                               |   Cryobs   |                               
+                               |   Cryobs   |                                  
                              -=             =-                                
                                | 2026-02-27 |                                 
                              _ |_____  _____| _                               
