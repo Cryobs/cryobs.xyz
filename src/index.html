@@ -3,155 +3,44 @@
 <head>
   <title>$TITLE</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <style>
-    @font-face {
-      font-family: "Fira-Code";
-      src: url("/fonts/fira-code/static/fira-code-latin-500-normal.woff2") format("woff2");
-      font-weight: normal;
-      font-style: normal;
-    } 
-
-    body {
-      color: #CCCCCC;
-      background-color: black;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-
-    * {
-      font-family: "Fira-Code";
-    }
-
-    a {
-      color: white;
-    }
-
-    .ascii-box {
-      font-size: clamp(5px, 2vw, 14px);
-      text-align: center;
-    }
-
-    .ascii-box pre {
-      margin: 0;
-      user-select: none;
-    }
-
-    .ascii-box pre * {
-      user-select: text;
-    }
-
-    .ascii-box pre .copy-btn {
-      user-select: none;
-    }
-
-    header {
-
-      position: relative;
-      display: inline-block;
-    }
-
-@keyframes pulse {
-  0% {
-    transform: translate(50%, -50%) scale(1) rotate(-10deg);
-  }
-  50% {
-    transform: translate(50%, -50%) scale(1.1) rotate(-10deg);
-  }
-  100% {
-    transform: translate(50%, -50%) scale(1) rotate(-10deg);
-  }
-}
-
-  #logo-status {
-    position: absolute;
-    
-    bottom: 1.5em;
-    right: 6em;
-
-    font-weight: bold;
-    color: yellow;
-    animation: pulse 2s ease-in-out infinite;
-    font-size: clamp(5px, 2.5vw, 16px);
-    text-align: center;
-
-    text-shadow: 2px 2px 0 var(--d-yellow);
-  }
-
-.copy-btn {
-    background: none;
-    border: 0;
-    padding: 0;
-    color: white;
-    font: inherit;
-    cursor: pointer;
-    user-select: none;
-}
-
-.copied {
-    position: fixed;
-    pointer-events: none;
-    user-select: none;
-
-    animation: copied 0.8s ease-out forwards;
-    font-weight: bold;
-    color: #ffff00;
-}
-
-@keyframes copied {
-    0% {
-        opacity: 0;
-        transform: translateY(5px);
-    }
-
-    20% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateY(-25px);
-    }
-}
-
-  </style>
   <header class="ascii-box" aria-selected="false">
 <pre>
-                                                                               
-         __                           /\                             __         
-        |_ \_________________________-  -___________________________/ _|        
-            \   ___  __        __   __   __        _   _ ____ ____ /            
-             | |    |  \ |  | |  | |  | |  |       |\  | |     ||  |            
-           -=  |    |__/ \_ / |  | |--   -_    _   | - | |--   ||   =-          
-             | |___ |  \  _/  |__| |__| |__|  |_|  |  \| |___  ||  |            
-         _  /________________________    __________________________\  _         
-        |__/                         -  -                           \__|        
-                                      \/                                        
-</pre>                                                                            
+                                                                              
+        __                            /\                            __       
+       |_ \__________________________-  -__________________________/ _|      
+           \   ___  __        __   __   __        _   _ ____ ____ /          
+            | |    |  \ |  | |  | |  | |  |       |\  | |     ||  |           
+          -=  |    |__/ \_ / |  | |--   -_    _   | - | |--   ||   =-         
+            | |___ |  \  _/  |__| |__| |__|  |_|  |  \| |___  ||  |           
+        _  /_________________________    _________________________\  _       
+       |__/                          -  -                          \__|      
+                                      \/                                      
+</pre>                                                                        
 <span id="logo-status">Try to be free :)</span>
   </header>
 
   <section class="ascii-box">
 <pre>
-                        _______________________________                         
-                       |_ terminal _________________ x |                        
-                       |                               |                        
-                       | &gt; $ <button class="copy-btn" data-copy="curl cryobs.net">curl cryobs.net</button>           |                        
-                       |_______________________________|                        
+                       ________________________________                         
+                      |_ terminal __________________ x |                        
+                      |                                |                        
+                      | &gt; $ <button class="copy-btn" data-copy="curl cryobs.net">curl cryobs.net</button>            |                        
+                      |________________________________|                        
                                                                               
 </pre>
   </section>
 
   <section class="ascii-box">
 <pre>
-  __                                                                      __  
- / _|                                /\                                  |_ \ 
- \________________/\________________-  -_______________/\___________________/ 
-  ________________  ________________    _______________  ___________________  
- / _              \/                -  -               \/                 _ \ 
- \__|                                \/                                  |__/ 
+ __                                                                        __ 
+/ _|                                  /\                                  |_ \
+\___________________/\_______________-  -_______________/\___________________/
+ ___________________  _______________    _______________  ___________________ 
+/ _                 \/               -  -               \/                 _ \
+\__|                                  \/                                  |__/
 
 </pre>
   </section>
@@ -162,7 +51,7 @@
    |                               <span>Legend</span>                                 |   
    |                                                                      |   
    |    <a href="">cryobs.net</a>                       <span>Homepage</span>                         |   
-   |    <a href="">cryobs.net/art</a>                   <span>My Ascii Art Gallery</span>             |   
+   |    <a href="/pank">cryobs.net/pank</a>                  <span>"Pank" - my ascii composition</span>    |   
    |    <a href="">cryobs.net/blog</a>                  <span>My Blog</span>                          |   
    |                                                                      |   
 </pre>
@@ -170,38 +59,53 @@
 
   <section class="ascii-box">
 <pre>
-  __                                                                      __  
- / _|                                /\                                  |_ \ 
- \________________/\________________-  -_______________/\___________________/ 
-  ________________  ________________    _______________  ___________________  
- / _              \/                -  -               \/                 _ \ 
- \__|                                \/                                  |__/ 
+ __                                                                        __ 
+/ _|                                  /\                                  |_ \
+\___________________/\_______________-  -_______________/\___________________/
+ ___________________  _______________    _______________  ___________________ 
+/ _                 \/               -  -               \/                 _ \
+\__|                                  \/                                  |__/
 
 </pre>
   </section>
 
                                                                              
-  <section class="ascii-box">
-<pre>
-   |                            <span>Introduction</span>                              |   
-   |                                                                      |   
-   |    <span>Hello, I'm 17 years old computer enthusiast, and this is my</span>       |   
-   |    <span>website created with the idea of teach myself about web side</span>      |   
-   |    <span>of computers and of course I was exited about maintain it all</span>     |   
-   |    <span>on my server :)</span>                                                   |   
-   |                                                                      |   
-   |                                                                      |   
+  <section class="ascii-box text-box">
+<pre class="left-border">
+   |    
+   |    
+   |    
+   |    
+   |    
+   |    
+   |    
+</pre>
+<div class="text">
+  <h1>Introduction</h1>                          
+
+  </p>
+Hello, I'm 17 years old computer enthusiast, and this is my website created with the idea of teach myself about web side of computers and of course I was exited about maintain it all
+  </p>
+</div>
+<pre class="right-border">
+    |    
+    |    
+    |    
+    |    
+    |    
+    |    
+    |    
 </pre>
   </section>
 
   <section class="ascii-box">
 <pre>
-  __                                                                      __  
- / _|                                /\                                  |_ \ 
- \________________/\________________-  -_______________/\___________________/ 
-  ________________  ________________    _______________  ___________________  
- / _              \/                -  -               \/                 _ \ 
- \__|                                \/                                  |__/ 
+ __                                                                        __ 
+/ _|                                  /\                                  |_ \
+\___________________/\_______________-  -_______________/\___________________/
+ ___________________  _______________    _______________  ___________________ 
+/ _                 \/               -  -               \/                 _ \
+\__|                                  \/                                  |__/
 
 </pre>
   </section>
@@ -209,14 +113,14 @@
 
   <footer class="ascii-box">
 <pre>
-                             __              __                               
-                            |_ \_____/\_____/ _|                              
-                               |            |                                 
-                               |   <span>Author</span>   |                                 
-                             -=              =-                               
-                               |   <span>cryobs</span>   |                                 
-                             _ |_____  _____| _                               
-                            |__/     \/     \__|                              
+                              __              __                               
+                             |_ \_____/\_____/ _|                              
+                                |            |                                 
+                                |   <span>Author</span>   |                                 
+                              -=              =-                               
+                                |   <span>cryobs</span>   |                                 
+                              _ |_____  _____| _                               
+                             |__/     \/     \__|                              
  
 </pre>
 </footer>
