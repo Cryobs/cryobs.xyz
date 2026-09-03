@@ -8,8 +8,6 @@ services:
     networks:
       - default
       - cloudflare-net
-    volumes:
-      - ./src:/usr/share/nginx/html:ro
 
 networks:
   default:
