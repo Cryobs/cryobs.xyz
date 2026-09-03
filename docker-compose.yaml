@@ -1,0 +1,14 @@
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    networks:
+      - cloudflare-net
+    volumes:
+      - ./src:/usr/share/nginx/html:ro
+
+networks:
+  cloudflare-net:
+    external: true
