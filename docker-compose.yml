@@ -1,14 +1,18 @@
 services:
   nginx:
-    image: nginx:alpine
+    build: .
+    container_name: cryobs-website
     ports:
       - "80:80"
     restart: unless-stopped
     networks:
+      - default
       - cloudflare-net
     volumes:
       - ./src:/usr/share/nginx/html:ro
 
 networks:
+  default:
+    driver: bridge
   cloudflare-net:
     external: true
