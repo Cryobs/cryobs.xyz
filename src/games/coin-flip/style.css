@@ -116,38 +116,24 @@ header {
     text-shadow: 2px 2px 0 #550;
 }
 
-.copy-btn {
+#btn-flip {
     background: none;
     border: 0;
-    padding: 0;
+
     color: white;
-    font: inherit;
-    cursor: pointer;
-    user-select: none;
 }
 
-.copied {
-    position: fixed;
-    pointer-events: none;
-    user-select: none;
+#btn-flip:hover {
+    background: white;
+    border: 0;
 
-    animation: copied 0.8s ease-out forwards;
-    font-weight: bold;
-    color: #ffff00;
+    color: black;
 }
 
-@keyframes copied {
-    0% {
-        opacity: 0;
-        transform: translateY(5px);
-    }
 
-    20% {
-        opacity: 1;
-    }
+#btn-flip:disabled {
+    background: gray;
+    border: 0;
 
-    100% {
-        opacity: 0;
-        transform: translateY(-25px);
-    }
+    color: black;
 }
