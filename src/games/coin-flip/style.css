@@ -81,12 +81,14 @@ a {
 }
 
 
-
-
 header {
     position: relative;
     display: inline-block;
-    margin-bottom: 3ch;
+    margin-bottom: 10ch;
+}
+
+footer {
+    margin-top: 10ch;
 }
 
 @keyframes pulse {
@@ -104,8 +106,8 @@ header {
 #logo-status {
     position: absolute;
 
-    bottom: 1.5em;
-    right: 6em;
+    bottom: -0.5em;
+    right: 9em;
 
     font-weight: bold;
     color: yellow;
@@ -116,9 +118,13 @@ header {
     text-shadow: 2px 2px 0 #550;
 }
 
+
+
+
 #btn-flip {
     background: none;
     border: 0;
+    margin: 1ch;
 
     color: white;
 }
@@ -136,4 +142,16 @@ header {
     border: 0;
 
     color: black;
+}
+
+.coin-box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#statistics {
+    overflow-y: scroll;
+    max-height: 25ch;
 }
