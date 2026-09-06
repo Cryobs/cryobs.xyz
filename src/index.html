@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>$TITLE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="ascii-box" aria-selected="false">
+<pre>
+                                                                              
+        __                            /\                            __       
+       |_ \__________________________-  -__________________________/ _|      
+           \   ___  __        __   __   __        _   _ ____ ____ /          
+            | |    |  \ |  | |  | |  | |  |       |\  | |     ||  |           
+          -=  |    |__/ \_ / |  | |--   -_    _   | - | |--   ||   =-         
+            | |___ |  \  _/  |__| |__| |__|  |_|  |  \| |___  ||  |           
+        _  /_________________________    _________________________\  _       
+       |__/                          -  -                          \__|      
+                                      \/                                      
+</pre>                                                                        
+<span id="logo-status">Try to be free :)</span>
+  </header>
+<!--
+  <section class="ascii-box">
+<pre>
+                       ________________________________                         
+                      |_ terminal __________________ x |                        
+                      |                                |                        
+                      | &gt; $ <button class="copy-btn" data-copy="curl cryobs.net">curl cryobs.net</button>            |                        
+                      |________________________________|                        
+                                                                              
+</pre>
+  </section>
+-->
+  <section class="ascii-box">
+<pre>
+ __                                                                        __ 
+/ _|                                  /\                                  |_ \
+\___________________/\_______________-  -_______________/\___________________/
+ ___________________  _______________    _______________  ___________________ 
+/ _                 \/               -  -               \/                 _ \
+\__|                                  \/                                  |__/
+
+</pre>
+  </section>
+                                                                            
+                                                                              
+  <section class="ascii-box  text-box">
+
+<pre class="left-border">
+  |    
+  |    
+  |    
+  |    
+  |    
+  |    
+  |    
+</pre>
+<div class="text">
+
+<h1>Legend</h1>
+
+<div class="columns">
+
+<div class="text">
+  <a href="/">cryobs.net</a><br>
+  <a href="/pank">cryobs.net/pank</a><br>
+  <a href="/games/coin-flip">cryobs.net/games/coin-flip</a><br>
+</div>
+
+<div class="text">
+  <p>Homepage</p>
+  <p>"Pank" - My ascii composition</p>
+  <p>Coin flip game</p>
+</div>
+
+</div>
+</div>
+<pre class="right-border">
+    |   
+    |   
+    |   
+    |   
+    |   
+    |   
+    |   
+</pre>
+  </section>
+
+  <section class="ascii-box">
+<pre>
+ __                                                                        __ 
+/ _|                                  /\                                  |_ \
+\___________________/\_______________-  -_______________/\___________________/
+ ___________________  _______________    _______________  ___________________ 
+/ _                 \/               -  -               \/                 _ \
+\__|                                  \/                                  |__/
+
+</pre>
+  </section>
+
+                                                                             
+  <section class="ascii-box text-box">
+<pre class="left-border">
+  |    
+  |    
+  |    
+  |    
+  |    
+  |    
+  |    
+</pre>
+<div class="text">
+  <h1>Introduction</h1>                          
+
+  </p>
+Hello, I'm a 17-year-old computer enthusiast, and this is my 
+website. I created it with the idea of showing and sharing how I 
+see the world — the world of computers. Happy exploring :)
+  </p>
+</div>
+<pre class="right-border">
+    |   
+    |   
+    |   
+    |   
+    |   
+    |   
+    |   
+</pre>
+  </section>
+
+  <section class="ascii-box">
+<pre>
+ __                                                                        __ 
+/ _|                                  /\                                  |_ \
+\___________________/\_______________-  -_______________/\___________________/
+ ___________________  _______________    _______________  ___________________ 
+/ _                 \/               -  -               \/                 _ \
+\__|                                  \/                                  |__/
+
+</pre>
+  </section>
+
+
+  <footer class="ascii-box">
+<pre>
+                              __              __                               
+                             |_ \_____/\_____/ _|                              
+                                |            |                                 
+                                |   <span>Author</span>   |                                 
+                              -=              =-                               
+                                |   <span>cryobs</span>   |                                 
+                              _ |_____  _____| _                               
+                             |__/     \/     \__|                              
+ 
+</pre>
+</footer>
+
+
+<script>
+document.querySelectorAll(".copy-btn").forEach(btn => {
+    btn.addEventListener("click", async (event) => {
+        await navigator.clipboard.writeText(btn.dataset.copy);
+
+        const popup = document.createElement("span");
+
+        popup.textContent = "Copied!";
+        popup.className = "copied";
+
+        popup.style.left = `${event.clientX}px`;
+        popup.style.top = `${event.clientY}px`;
+
+        document.body.appendChild(popup);
+
+        setTimeout(() => popup.remove(), 800);
+    });
+});
+</script>
+</body>
+</html>
