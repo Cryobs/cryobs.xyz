@@ -1,0 +1,235 @@
+@font-face {
+    font-family: "Fira-Code";
+    src: url("/fonts/fira-code/static/fira-code-latin-500-normal.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+} 
+
+body {
+    color: #CCCCCC;
+    background-color: #050505;
+    margin: 0;
+    padding: 0;
+
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+* {
+    font-family: "Fira-Code";
+    font-variant-ligatures: no-contextual;
+}
+
+a {
+    color: white;
+}
+
+.ascii-box {
+    width: 79ch;
+    font-size: clamp(5px, 2vw, 14px);
+}
+
+.ascii-box pre {
+    margin: 0;
+    user-select: none;
+}
+
+.ascii-box pre * {
+    user-select: text;
+}
+
+.ascii-box pre .copy-btn {
+    user-select: none;
+}
+
+.text-box {
+    width: 79ch;
+    display: flex;
+    align-items: stretch;
+}
+
+.columns {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.left-border, .right-border {
+    flex-shrink: 0;
+    margin: 0;
+    flex: 0 0 auto;
+}
+
+.text {
+    flex: 1;
+    min-height: 0;
+}
+
+.text-box h1 {
+    font: inherit;
+    font-size: inherit;
+    font-weight: normal;
+    margin: 0;
+    margin-bottom: 2ch;
+    padding: 0;
+    color: white;
+    text-align: center;
+}
+.text p {
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+
+header {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 10ch;
+}
+
+footer {
+    margin-top: 10ch;
+}
+
+@keyframes pulse {
+    0% {
+        transform: translate(50%, -50%) scale(1) rotate(-10deg);
+    }
+    50% {
+        transform: translate(50%, -50%) scale(1.1) rotate(-10deg);
+    }
+    100% {
+        transform: translate(50%, -50%) scale(1) rotate(-10deg);
+    }
+}
+
+#logo-status {
+    position: absolute;
+
+    bottom: -0.5em;
+    right: 9em;
+
+    font-weight: bold;
+    color: yellow;
+    animation: pulse 2s ease-in-out infinite;
+    font-size: clamp(5px, 2.5vw, 16px);
+    text-align: center;
+
+    text-shadow: 2px 2px 0 #550;
+}
+
+
+
+.bomb {
+    color: black;
+    background-color: red;
+}
+
+#field {
+    font-size: clamp(5px, 2.5vw, 24px);
+    margin-left: 1ch;
+}
+
+#field-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cell {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+
+    padding: 0;
+    padding-right: 1ch;
+}
+
+.cell {
+    background: transparent;
+}
+
+
+.N0 {
+    color: #808080;
+}
+
+.N1 {
+    color: #0000FF;
+}
+
+.N2 {
+    color: #00A000;
+}
+
+.N3 {
+    color: #FF0000;
+}
+
+.N4 {
+    color: #9900FF;
+}
+
+.N5 {
+    color: #FFAA00;
+}
+
+.N6 {
+    color: #00A0A0;
+}
+
+.N7 {
+    color: #FFFFFF;
+}
+
+.N8 {
+    color: #A0A0A0;
+}
+
+.flag {
+    color: #AA0000;
+    background-color: #888;
+}
+
+#top-nav {
+    display: flex;
+    justify-content: center;
+}
+
+#top-nav * {
+    margin: 0 1ch;
+}
+
+#bomb-count {
+    display: flex;
+}
+
+#bomb-count *{
+    margin:  0;
+}
+
+#timer {
+    display: flex;
+}
+
+#timer *{
+    margin:  0;
+}
+
+
+#game-btn {
+    cursor: pointer;
+}
+
+#game-btn:hover {
+    background-color: white;
+    color: black;
+}
