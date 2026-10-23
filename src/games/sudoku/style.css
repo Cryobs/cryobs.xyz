@@ -133,10 +133,12 @@ footer {
 
 #sudoku {
     color: #444;
+    user-select: none;
 }
 
-.bold_border {
+#sudoku .bold_border {
     color: #999;
+    user-select: none;
 }
 
 .number {
