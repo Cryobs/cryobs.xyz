@@ -1,7 +1,7 @@
 const sudoku = document.getElementById("sudoku")
 
-const bold_border = "+===+===+===+===+===+===+===+===+===+";
-const thin_border = "+---+---+---+---+---+---+---+---+---+";
+const bold_border = "<span class='bold_border'>+===+===+===+===+===+===+===+===+===+</span>";
+const thin_border = "<span class='bold_border'>|</span>---+---+---<span class='bold_border'>|</span>---+---+---<span class='bold_border'>|</span>---+---+---<span class='bold_border'>|</span>";
 
 const squares = [
     1838599n,
@@ -153,6 +153,7 @@ if (generate(numbers, 0))
 
     for (let r = 0; r < 9; r++)
     {
+        output += "<span class='bold_border'>|</span> "
         for (let c =  0; c < 9; c++)
         {
             const pos = r * 9 + c;
@@ -160,13 +161,9 @@ if (generate(numbers, 0))
             const digit =  numbers.findIndex(
                 bitmap => bitmap.get_bit(pos) === 1n
             ) + 1;
-
-            if (c === 0)
-            {
-                output += "| "
-            }
+            
             output +=  `<span class="number" id="s${r}${c}">${digit}</span>` + 
-                (((c+1) % 3 === 0) ? " | " : " : ");
+                (((c+1) % 3 === 0) ? " <span class='bold_border'>|</span> " : " : ");
         }
         output += "\n" + 
             (((r+1) % 3 === 0) ? bold_border : thin_border) + 

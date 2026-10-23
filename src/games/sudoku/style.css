@@ -132,9 +132,14 @@ footer {
 }
 
 #sudoku {
-    color: gray;
+    color: #444;
+}
+
+.bold_border {
+    color: #999;
 }
 
 .number {
     color: white;
 }
+
