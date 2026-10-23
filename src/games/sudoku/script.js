@@ -1,5 +1,7 @@
 const sudoku = document.getElementById("sudoku")
 
+const bold_border = "+===+===+===+===+===+===+===+===+===+";
+const thin_border = "+---+---+---+---+---+---+---+---+---+";
 
 const squares = [
     1838599n,
@@ -50,40 +52,26 @@ class Map {
 
     is_horizontal(pos)
     {
-        let row = (this.map << BigInt(Math.floor(pos/9))) 
-                    & 0b111111111n 
-                    & ~(1n << BigInt(pos));
-
-        return row == 0
+        return (this.map & 0b111111111n << BigInt(Math.floor(pos/9) * 9)) === 0n
     }
 
     is_vertical(pos)
     {
-        let zero_col = new Map();
-        for(let i = 0; i<9*9; i += 9) {
-            zero_col.set_bit(i);
+        const col = pos % 9;
+        let mask = 0n
+
+        for(let row = 0; row < 9; row++) {
+            mask |= 1n << BigInt(row * 9 + col);
         }
-        zero_col.map <<= BigInt(pos%9);
-        return (this.map & zero_col.map & ~(1n << BigInt(pos%9))) == 0;
+
+        return (this.map & mask) === 0n;
     }
 
     is_square(pos)
     {
         let sqr =  get_square(pos);
 
-        return (this.map & sqr.map & ~(1n << BigInt(pos%9))) == 0;
-    }
-
-
-    gen_num()
-    {
-        /* TODO GENERATING NUMBERS AND XOR ALL NUMBERS */
-        for (let i=0; i<9; i++)
-        {
-            let square = get_square(i);
-
-
-        }
+        return (this.map & sqr.map)  === 0n;
     }
 
 
@@ -91,48 +79,103 @@ class Map {
 }
 
 
-let field = new Map();
+function generate(numbers, pos)
+{
+    if (pos === 81)
+    {
+        return true;
+    }
 
-let numbers = [
-    new Map(),
-    new Map(),
-    new Map(),
-    new Map(),
-    new Map(),
-    new Map(),
-    new Map(),
-    new Map(),
-    new Map()
-]
+    /* shuffle numbers */
+    let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    for (let i = 8; i > 0; i--)
+    {
+        let r = Math.floor(Math.random() * (i + 1));
+        [nums[i], nums[r]] = [nums[r], nums[i]];
+    }
+
+    for (const d of nums)
+    {
+        const bitmap = numbers[d - 1];
+        
+        if (
+            !bitmap.is_horizontal(pos) ||
+            !bitmap.is_vertical(pos) ||
+            !bitmap.is_square(pos)
+        ) 
+        {
+            continue
+        }
+
+        bitmap.set_bit(pos);
+
+        if (generate(numbers, pos + 1))
+        {
+            return true;
+        }
+
+        bitmap.unset_bit(pos);
+    }
+
+    return false;
+}
+
 
 
 function get_square(pos)
 {
-    row = Math.floor(pos / 9 / 3);
-    col = Math.floor(pos % 9 / 3);
-    console.log("COL: " + col);
-    console.log("ROW: " + row);
+    const row = Math.floor(pos / 9 / 3);
+    const col = Math.floor(pos % 9 / 3);
 
     let map = new Map();
-    map.set_bit(0 + 9*row*3 + 3*col);
-    map.set_bit(1 + 9*row*3 + 3*col);
-    map.set_bit(2 + 9*row*3 + 3*col);
 
-    map.set_bit(0 + 9*(row*3+1) + 3*col);
-    map.set_bit(1 + 9*(row*3+1) + 3*col);
-    map.set_bit(2 + 9*(row*3+1) + 3*col);
-
-    map.set_bit(0 + 9*(row*3+2) + 3*col);
-    map.set_bit(1 + 9*(row*3+2) + 3*col);
-    map.set_bit(2 + 9*(row*3+2) + 3*col);
+    for (let r = row * 3; r < row * 3 + 3; r++)
+    {
+        for (let c = col * 3; c < col * 3 + 3; c++)
+        {
+            map.set_bit(r * 9 + c);
+        }
+    }
 
     return map;
 }
 
-field.set_bit(1);
-field.set_bit(18 + 2);
-console.log(field.str());
-console.log(field.is_horizontal(1));
-console.log(field.is_vertical(1));
-console.log(field.is_square(1));
-    
+
+
+let numbers = Array.from(
+    {length: 9},
+    () => new Map()
+);
+
+if (generate(numbers, 0)) 
+{
+    let output = bold_border + "\n";
+
+    for (let r = 0; r < 9; r++)
+    {
+        for (let c =  0; c < 9; c++)
+        {
+            const pos = r * 9 + c;
+
+            const digit =  numbers.findIndex(
+                bitmap => bitmap.get_bit(pos) === 1n
+            ) + 1;
+
+            if (c === 0)
+            {
+                output += "| "
+            }
+            output +=  `<span class="number" id="s${r}${c}">${digit}</span>` + 
+                (((c+1) % 3 === 0) ? " | " : " : ");
+        }
+        output += "\n" + 
+            (((r+1) % 3 === 0) ? bold_border : thin_border) + 
+            "\n";
+
+    }
+
+    sudoku.innerHTML = output;
+}
+ 
+
+        

@@ -19,6 +19,7 @@ body {
 
 * {
     font-family: "Fira-Code";
+    font-variant-ligatures: no-contextual;
 }
 
 a {
@@ -121,28 +122,7 @@ footer {
 
 
 
-#btn-flip {
-    background: none;
-    border: 0;
-    margin: 1ch;
 
-    color: white;
-}
-
-#btn-flip:hover {
-    background: white;
-    border: 0;
-
-    color: black;
-}
-
-
-#btn-flip:disabled {
-    background: gray;
-    border: 0;
-
-    color: black;
-}
 
 .sudoku-container {
     flex: 1;
@@ -151,7 +131,10 @@ footer {
     flex-direction: column;
 }
 
-#statistics {
-    overflow-y: scroll;
-    max-height: 25ch;
+#sudoku {
+    color: gray;
+}
+
+.number {
+    color: white;
 }
